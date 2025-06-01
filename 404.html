@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <title>404 — Страница не найдена</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet" />
   <style>
     html, body {
       margin: 0;
@@ -13,7 +13,7 @@
       height: 100%;
       background: radial-gradient(circle at center, #1a0000, #000000);
       font-family: 'Orbitron', sans-serif;
-      color: #ff3c3c;
+      color: #ff4c4c;
     }
 
     canvas {
@@ -35,31 +35,41 @@
     h1 {
       font-size: 150px;
       margin: 0;
-      color: #ff1f1f;
+      color: #ff6666;
       text-shadow:
-        0 0 5px #ff1f1f,
-        0 0 20px #ff1f1f,
-        0 0 40px #ff0000,
-        0 0 80px #ff0000;
+        0 0 8px #ff6666,
+        0 0 20px #ff4c4c,
+        0 0 40px #ff3333,
+        0 0 70px #ff1a1a;
       animation: pulse 4s ease-in-out infinite;
+      user-select: none;
     }
 
     @keyframes pulse {
       0%, 100% {
-        text-shadow: 0 0 10px #ff1f1f, 0 0 20px #ff1f1f, 0 0 30px #ff0000, 0 0 50px #ff0000;
+        text-shadow:
+          0 0 10px #ff8c8c,
+          0 0 25px #ff6666,
+          0 0 45px #ff4c4c,
+          0 0 70px #ff3333;
         transform: scale(1);
       }
       50% {
-        text-shadow: 0 0 30px #ff4d4d, 0 0 50px #ff1f1f, 0 0 80px red, 0 0 120px red;
-        transform: scale(1.04);
+        text-shadow:
+          0 0 30px #ffb3b3,
+          0 0 55px #ff8c8c,
+          0 0 80px #ff6666,
+          0 0 100px #ff4c4c;
+        transform: scale(1.05);
       }
     }
 
     p {
       font-size: 22px;
-      color: #ff8a8a;
-      text-shadow: 0 0 5px #ff4d4d;
+      color: #ff9999;
+      text-shadow: 0 0 6px #ff6666;
       margin-top: 10px;
+      user-select: none;
     }
 
     a {
@@ -67,27 +77,31 @@
       display: inline-block;
       padding: 12px 30px;
       color: black;
-      background: #ff1f1f;
+      background: #ff6666;
       border-radius: 8px;
       font-weight: bold;
       text-decoration: none;
-      box-shadow: 0 0 15px #ff1f1f;
+      box-shadow: 0 0 15px #ff6666;
       transition: 0.3s ease;
+      user-select: none;
     }
 
     a:hover {
       background: #fff;
-      color: #ff1f1f;
-      box-shadow: 0 0 25px #ff1f1f;
+      color: #ff6666;
+      box-shadow: 0 0 25px #ff6666;
     }
 
-    /* Floating glitchy digits background */
     .glitch {
       position: absolute;
       font-size: 24px;
-      color: rgba(255, 50, 50, 0.15);
-      animation: float 10s linear infinite;
+      color: rgba(255, 80, 80, 0.15);
       user-select: none;
+      pointer-events: none;
+      animation-name: float, glitchAnim;
+      animation-duration: 10s, 1.5s;
+      animation-iteration-count: infinite, infinite;
+      animation-timing-function: linear, steps(2);
     }
 
     @keyframes float {
@@ -95,14 +109,20 @@
       50% { transform: translateY(-20px); opacity: 0.4; }
       100% { transform: translateY(-40px); opacity: 0.1; }
     }
+
+    @keyframes glitchAnim {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
   </style>
 </head>
 <body>
   <canvas id="particles"></canvas>
+
   <div class="content">
     <h1>404</h1>
     <p>Похоже, ты зашёл в пустоту…</p>
-    //<a href="/">Назад на главную</a>
+    <a href="/">Назад на главную</a>
   </div>
 
   <!-- Партиклы -->
@@ -118,7 +138,6 @@
       canvas.width = width;
       canvas.height = height;
     }
-
     window.addEventListener('resize', resize);
     resize();
 
@@ -126,7 +145,6 @@
       constructor() {
         this.reset();
       }
-
       reset() {
         this.x = Math.random() * width;
         this.y = Math.random() * height;
@@ -135,21 +153,19 @@
         this.speedY = Math.random() * 0.6 - 0.3;
         this.alpha = Math.random() * 0.5 + 0.3;
       }
-
       update() {
         this.x += this.speedX;
         this.y += this.speedY;
-
-        if (this.x < 0 || this.x > width || this.y < 0 || this.y > height) {
-          this.reset();
-        }
+        if (this.x < 0 || this.x > width || this.y < 0 || this.y > height) this.reset();
       }
-
       draw() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(255, 0, 0, ${this.alpha})`;
+        ctx.shadowColor = 'rgba(255,0,0,0.7)';
+        ctx.shadowBlur = 8;
         ctx.fill();
+        ctx.shadowBlur = 0;
       }
     }
 
@@ -173,18 +189,36 @@
     animate();
   </script>
 
-  <!-- Глюки / цифры -->
+  <!-- Глюки / цифры с рандомным миганием -->
   <script>
-    const glitchCount = 30;
+    const glitchCount = 40;
+    const glitchElements = [];
+
     for (let i = 0; i < glitchCount; i++) {
-      const span = document.createElement('div');
-      span.className = 'glitch';
-      span.style.left = `${Math.random() * 100}%`;
-      span.style.top = `${Math.random() * 100}%`;
-      span.innerText = Math.random() < 0.5 ? '0' : '1';
-      span.style.animationDuration = `${5 + Math.random() * 10}s`;
-      document.body.appendChild(span);
+      const el = document.createElement('div');
+      el.className = 'glitch';
+      el.style.left = `${Math.random() * 100}%`;
+      el.style.top = `${Math.random() * 100}%`;
+      el.style.animationDuration = `${10 + Math.random() * 15}s, ${1 + Math.random()}s`;
+      el.style.fontSize = `${12 + Math.random() * 24}px`;
+      el.style.opacity = 0.1 + Math.random() * 0.3;
+      el.textContent = Math.random() < 0.5 ? '0' : '1';
+      document.body.appendChild(el);
+      glitchElements.push(el);
     }
+
+    // Функция, которая рандомно меняет цифры и анимацию "глюка"
+    function glitchChange() {
+      glitchElements.forEach(el => {
+        if (Math.random() < 0.15) { // 15% шанс сменить цифру
+          el.textContent = Math.random() < 0.5 ? '0' : '1';
+          // немножко поменять скорость глюка для живости
+          el.style.animationDuration = `${1 + Math.random()}s`;
+        }
+      });
+    }
+
+    setInterval(glitchChange, 300);
   </script>
 </body>
 </html>
