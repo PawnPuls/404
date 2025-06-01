@@ -2,42 +2,127 @@
 <html lang="ru">
   <head>
     <meta charset="UTF-8" />
+    <title>404 — Не найдено</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>404 — Страница не найдена</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
     <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body, html {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        font-family: 'Orbitron', sans-serif;
+        background: black;
+        color: #ff1f1f;
+      }
+
       body {
-        background-color: #0f172a;
-        color: white;
-        font-family: 'Inter', sans-serif;
+        background: linear-gradient(120deg, #000, #1a0000, #000);
+        background-size: 600% 600%;
+        animation: gradientShift 20s ease infinite;
+      }
+
+      @keyframes gradientShift {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+
+      .center {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+      }
+
+      h1 {
+        font-size: 160px;
+        letter-spacing: 10px;
+        text-shadow: 0 0 10px #ff1f1f, 0 0 20px #ff1f1f, 0 0 40px red;
+        animation: pulse 3s infinite ease-in-out;
+      }
+
+      @keyframes pulse {
+        0%, 100% { text-shadow: 0 0 10px #ff1f1f, 0 0 20px #ff1f1f, 0 0 40px red; transform: scale(1); }
+        50% { text-shadow: 0 0 30px #ff4d4d, 0 0 60px #ff1f1f, 0 0 90px red; transform: scale(1.03); }
+      }
+
+      p {
+        font-size: 24px;
+        color: #ff5c5c;
+        margin-top: 20px;
+        text-shadow: 0 0 5px #ff1f1f;
+      }
+
+      a {
+        display: inline-block;
+        margin-top: 30px;
+        padding: 12px 28px;
+        color: #fff;
+        background: transparent;
+        border: 2px solid #ff1f1f;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 18px;
+        transition: 0.3s ease;
+        position: relative;
+        z-index: 2;
+      }
+
+      a:hover {
+        background: #ff1f1f;
+        color: black;
+        box-shadow: 0 0 20px #ff1f1f;
+      }
+
+      .lines {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: 0;
+      }
+
+      .lines svg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        stroke: rgba(255, 0, 0, 0.1);
+        stroke-width: 1;
+        animation: moveLines 40s linear infinite;
+      }
+
+      @keyframes moveLines {
+        0% { transform: translateY(0); }
+        100% { transform: translateY(-100%); }
       }
     </style>
   </head>
-  <body class="h-screen flex flex-col justify-center items-center text-center p-4">
-    <h1 id="title" class="text-9xl font-extrabold mb-4 text-white drop-shadow-lg">404</h1>
-    <p id="subtitle" class="text-xl text-gray-400 mb-8">
-      Страница не найдена. Возможно, она была удалена или перемещена.
-    </p>
-    <a
-      href="/"
-      class="bg-blue-600 hover:bg-blue-500 transition px-6 py-3 rounded-md text-white font-medium shadow-lg"
-    >
-      На главную
-    </a>
+  <body>
+    <div class="lines">
+      <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+        <defs>
+          <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
+            <path d="M 10 0 L 0 0 0 10" fill="none" />
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#grid)" />
+      </svg>
+    </div>
 
-    <script>
-      gsap.from("#title", {
-        duration: 1,
-        opacity: 0,
-        y: -100,
-        ease: "bounce.out",
-      });
-      gsap.from("#subtitle", {
-        duration: 1,
-        opacity: 0,
-        delay: 0.5,
-      });
-    </script>
+    <div class="center">
+      <h1>404</h1>
+      <p>Страница не найдена</p>
+      <a href="/">Вернуться домой</a>
+    </div>
   </body>
 </html>
