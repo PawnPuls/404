@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>404 — Страница не найдена</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet" />
   <style>
     html, body {
@@ -30,39 +30,46 @@
       left: 50%;
       transform: translate(-50%, -50%);
       text-align: center;
+      padding: 0 10px;
+      max-width: 90vw;
     }
 
     h1 {
-      font-size: 150px;
+      font-size: 140px;
       margin: 0;
       color: #000000;
+
+      /* Упрощенное свечение без тяжелого blur для мобильных */
       text-shadow:
-        0 0 10px #ff0000,
-        0 0 20px #ff0000,
-        0 0 40px #ff1a1a,
-        0 0 70px #ff4c4c,
-        0 0 90px #ff6666;
+        0 0 6px #ff0000,
+        0 0 12px #ff1a1a,
+        0 0 18px #ff4c4c,
+        0 0 25px #ff6666;
+
       animation: pulse 4s ease-in-out infinite;
       user-select: none;
+
+      /* Для маленьких экранов подгоняем размер */
+      @media (max-width: 600px) {
+        font-size: 80px;
+      }
     }
 
     @keyframes pulse {
       0%, 100% {
         text-shadow:
-          0 0 15px #ff0000,
-          0 0 30px #ff1a1a,
-          0 0 50px #ff4c4c,
-          0 0 80px #ff6666,
-          0 0 100px #ff9999;
+          0 0 8px #ff0000,
+          0 0 15px #ff1a1a,
+          0 0 22px #ff4c4c,
+          0 0 30px #ff6666;
         transform: scale(1);
       }
       50% {
         text-shadow:
-          0 0 35px #ff4c4c,
-          0 0 55px #ff1a1a,
-          0 0 90px #ff0000,
-          0 0 120px #ff0000,
-          0 0 140px #ff4c4c;
+          0 0 18px #ff4c4c,
+          0 0 30px #ff1a1a,
+          0 0 45px #ff0000,
+          0 0 60px #ff0000;
         transform: scale(1.05);
       }
     }
@@ -73,6 +80,12 @@
       text-shadow: 0 0 6px #ff6666;
       margin-top: 10px;
       user-select: none;
+      font-weight: 500;
+
+      /* Подгонка для мобильных */
+      @media (max-width: 600px) {
+        font-size: 16px;
+      }
     }
 
     a {
@@ -89,6 +102,12 @@
         0 0 20px #ff4c4c;
       transition: 0.3s ease;
       user-select: none;
+
+      /* Мобильная подгонка */
+      @media (max-width: 600px) {
+        font-size: 16px;
+        padding: 10px 20px;
+      }
     }
 
     a:hover {
@@ -109,6 +128,10 @@
       animation-duration: 10s, 1.5s;
       animation-iteration-count: infinite, infinite;
       animation-timing-function: linear, steps(2);
+
+      @media (max-width: 600px) {
+        font-size: 14px;
+      }
     }
 
     @keyframes float {
@@ -170,7 +193,7 @@
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(255, 0, 0, ${this.alpha})`;
         ctx.shadowColor = 'rgba(255,0,0,0.7)';
-        ctx.shadowBlur = 8;
+        ctx.shadowBlur = 6;
         ctx.fill();
         ctx.shadowBlur = 0;
       }
