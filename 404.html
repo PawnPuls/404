@@ -1,128 +1,190 @@
 <!DOCTYPE html>
 <html lang="ru">
-  <head>
-    <meta charset="UTF-8" />
-    <title>404 — Не найдено</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
+<head>
+  <meta charset="UTF-8" />
+  <title>404 — Страница не найдена</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      height: 100%;
+      background: radial-gradient(circle at center, #1a0000, #000000);
+      font-family: 'Orbitron', sans-serif;
+      color: #ff3c3c;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+
+    .content {
+      position: absolute;
+      z-index: 2;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 150px;
+      margin: 0;
+      color: #ff1f1f;
+      text-shadow:
+        0 0 5px #ff1f1f,
+        0 0 20px #ff1f1f,
+        0 0 40px #ff0000,
+        0 0 80px #ff0000;
+      animation: pulse 4s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        text-shadow: 0 0 10px #ff1f1f, 0 0 20px #ff1f1f, 0 0 30px #ff0000, 0 0 50px #ff0000;
+        transform: scale(1);
+      }
+      50% {
+        text-shadow: 0 0 30px #ff4d4d, 0 0 50px #ff1f1f, 0 0 80px red, 0 0 120px red;
+        transform: scale(1.04);
+      }
+    }
+
+    p {
+      font-size: 22px;
+      color: #ff8a8a;
+      text-shadow: 0 0 5px #ff4d4d;
+      margin-top: 10px;
+    }
+
+    a {
+      margin-top: 30px;
+      display: inline-block;
+      padding: 12px 30px;
+      color: black;
+      background: #ff1f1f;
+      border-radius: 8px;
+      font-weight: bold;
+      text-decoration: none;
+      box-shadow: 0 0 15px #ff1f1f;
+      transition: 0.3s ease;
+    }
+
+    a:hover {
+      background: #fff;
+      color: #ff1f1f;
+      box-shadow: 0 0 25px #ff1f1f;
+    }
+
+    /* Floating glitchy digits background */
+    .glitch {
+      position: absolute;
+      font-size: 24px;
+      color: rgba(255, 50, 50, 0.15);
+      animation: float 10s linear infinite;
+      user-select: none;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); opacity: 0.1; }
+      50% { transform: translateY(-20px); opacity: 0.4; }
+      100% { transform: translateY(-40px); opacity: 0.1; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="particles"></canvas>
+  <div class="content">
+    <h1>404</h1>
+    <p>Похоже, ты зашёл в пустоту…</p>
+    <a href="/">Назад на главную</a>
+  </div>
+
+  <!-- Партиклы -->
+  <script>
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    let particles = [];
+
+    function resize() {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
+    }
+
+    window.addEventListener('resize', resize);
+    resize();
+
+    class Particle {
+      constructor() {
+        this.reset();
       }
 
-      body, html {
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        font-family: 'Orbitron', sans-serif;
-        background: black;
-        color: #ff1f1f;
+      reset() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.radius = Math.random() * 2 + 1;
+        this.speedX = Math.random() * 0.6 - 0.3;
+        this.speedY = Math.random() * 0.6 - 0.3;
+        this.alpha = Math.random() * 0.5 + 0.3;
       }
 
-      body {
-        background: linear-gradient(120deg, #000, #1a0000, #000);
-        background-size: 600% 600%;
-        animation: gradientShift 20s ease infinite;
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+
+        if (this.x < 0 || this.x > width || this.y < 0 || this.y > height) {
+          this.reset();
+        }
       }
 
-      @keyframes gradientShift {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 0, 0, ${this.alpha})`;
+        ctx.fill();
       }
+    }
 
-      .center {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        text-align: center;
+    function createParticles(count) {
+      particles = [];
+      for (let i = 0; i < count; i++) {
+        particles.push(new Particle());
       }
+    }
 
-      h1 {
-        font-size: 160px;
-        letter-spacing: 10px;
-        text-shadow: 0 0 10px #ff1f1f, 0 0 20px #ff1f1f, 0 0 40px red;
-        animation: pulse 3s infinite ease-in-out;
-      }
+    function animate() {
+      ctx.clearRect(0, 0, width, height);
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animate);
+    }
 
-      @keyframes pulse {
-        0%, 100% { text-shadow: 0 0 10px #ff1f1f, 0 0 20px #ff1f1f, 0 0 40px red; transform: scale(1); }
-        50% { text-shadow: 0 0 30px #ff4d4d, 0 0 60px #ff1f1f, 0 0 90px red; transform: scale(1.03); }
-      }
+    createParticles(150);
+    animate();
+  </script>
 
-      p {
-        font-size: 24px;
-        color: #ff5c5c;
-        margin-top: 20px;
-        text-shadow: 0 0 5px #ff1f1f;
-      }
-
-      a {
-        display: inline-block;
-        margin-top: 30px;
-        padding: 12px 28px;
-        color: #fff;
-        background: transparent;
-        border: 2px solid #ff1f1f;
-        border-radius: 8px;
-        text-decoration: none;
-        font-size: 18px;
-        transition: 0.3s ease;
-        position: relative;
-        z-index: 2;
-      }
-
-      a:hover {
-        background: #ff1f1f;
-        color: black;
-        box-shadow: 0 0 20px #ff1f1f;
-      }
-
-      .lines {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        z-index: 0;
-      }
-
-      .lines svg {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        stroke: rgba(255, 0, 0, 0.1);
-        stroke-width: 1;
-        animation: moveLines 40s linear infinite;
-      }
-
-      @keyframes moveLines {
-        0% { transform: translateY(0); }
-        100% { transform: translateY(-100%); }
-      }
-    </style>
-  </head>
-  <body>
-    <div class="lines">
-      <svg viewBox="0 0 100 100" preserveAspectRatio="none">
-        <defs>
-          <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
-            <path d="M 10 0 L 0 0 0 10" fill="none" />
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#grid)" />
-      </svg>
-    </div>
-
-    <div class="center">
-      <h1>404</h1>
-      <p>Страница не найдена</p>
-      <a href="/">Вернуться домой</a>
-    </div>
-  </body>
+  <!-- Глюки / цифры -->
+  <script>
+    const glitchCount = 30;
+    for (let i = 0; i < glitchCount; i++) {
+      const span = document.createElement('div');
+      span.className = 'glitch';
+      span.style.left = `${Math.random() * 100}%`;
+      span.style.top = `${Math.random() * 100}%`;
+      span.innerText = Math.random() < 0.5 ? '0' : '1';
+      span.style.animationDuration = `${5 + Math.random() * 10}s`;
+      document.body.appendChild(span);
+    }
+  </script>
+</body>
 </html>
