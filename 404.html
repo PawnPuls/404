@@ -35,12 +35,13 @@
     h1 {
       font-size: 150px;
       margin: 0;
-      color: #ff6666;
+      color: #000000;
       text-shadow:
-        0 0 8px #ff6666,
-        0 0 20px #ff4c4c,
-        0 0 40px #ff3333,
-        0 0 70px #ff1a1a;
+        0 0 10px #ff0000,
+        0 0 20px #ff0000,
+        0 0 40px #ff1a1a,
+        0 0 70px #ff4c4c,
+        0 0 90px #ff6666;
       animation: pulse 4s ease-in-out infinite;
       user-select: none;
     }
@@ -48,18 +49,20 @@
     @keyframes pulse {
       0%, 100% {
         text-shadow:
-          0 0 10px #ff8c8c,
-          0 0 25px #ff6666,
-          0 0 45px #ff4c4c,
-          0 0 70px #ff3333;
+          0 0 15px #ff0000,
+          0 0 30px #ff1a1a,
+          0 0 50px #ff4c4c,
+          0 0 80px #ff6666,
+          0 0 100px #ff9999;
         transform: scale(1);
       }
       50% {
         text-shadow:
-          0 0 30px #ffb3b3,
-          0 0 55px #ff8c8c,
-          0 0 80px #ff6666,
-          0 0 100px #ff4c4c;
+          0 0 35px #ff4c4c,
+          0 0 55px #ff1a1a,
+          0 0 90px #ff0000,
+          0 0 120px #ff0000,
+          0 0 140px #ff4c4c;
         transform: scale(1.05);
       }
     }
@@ -76,20 +79,24 @@
       margin-top: 30px;
       display: inline-block;
       padding: 12px 30px;
-      color: black;
-      background: #ff6666;
-      border-radius: 8px;
+      color: #ff1a1a;
       font-weight: bold;
+      font-size: 20px;
       text-decoration: none;
-      box-shadow: 0 0 15px #ff6666;
+      text-shadow:
+        0 0 5px #ff0000,
+        0 0 10px #ff1a1a,
+        0 0 20px #ff4c4c;
       transition: 0.3s ease;
       user-select: none;
     }
 
     a:hover {
-      background: #fff;
-      color: #ff6666;
-      box-shadow: 0 0 25px #ff6666;
+      color: #000;
+      text-shadow:
+        0 0 10px #ff0000,
+        0 0 25px #ff1a1a,
+        0 0 40px #ff4c4c;
     }
 
     .glitch {
@@ -122,7 +129,7 @@
   <div class="content">
     <h1>404</h1>
     <p>Похоже, ты зашёл в пустоту…</p>
-    <a href="/">Назад на главную</a>
+    <a href="https://instagram.com/arbvzer" target="_blank" rel="noopener noreferrer">@arbvzer</a>
   </div>
 
   <!-- Партиклы -->
@@ -207,12 +214,11 @@
       glitchElements.push(el);
     }
 
-    // Функция, которая рандомно меняет цифры и анимацию "глюка"
+    // Рандомное изменение цифр и мигание "глюка"
     function glitchChange() {
       glitchElements.forEach(el => {
-        if (Math.random() < 0.15) { // 15% шанс сменить цифру
+        if (Math.random() < 0.15) {
           el.textContent = Math.random() < 0.5 ? '0' : '1';
-          // немножко поменять скорость глюка для живости
           el.style.animationDuration = `${1 + Math.random()}s`;
         }
       });
