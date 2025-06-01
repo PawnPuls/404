@@ -2,33 +2,84 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>404 - Страница не найдена</title>
+  <title>404 — Страница не найдена</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
-      background-color: #1e1e1e;
-      color: #f0f0f0;
-      font-family: "Segoe UI", sans-serif;
+      background-color: #0d0d0d;
+      color: #f8f8f8;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      height: 100vh;
       text-align: center;
-      padding: 50px;
+      padding: 20px;
     }
+
     h1 {
-      font-size: 72px;
+      font-size: 120px;
+      margin-bottom: 10px;
+      color: #ff4c60;
+      animation: pulse 2s infinite;
     }
+
     p {
-      font-size: 24px;
+      font-size: 22px;
+      color: #ccc;
+      margin-bottom: 30px;
     }
+
     a {
-      color: #66ccff;
+      display: inline-block;
+      padding: 12px 24px;
+      background-color: #ff4c60;
+      color: #fff;
+      border-radius: 8px;
       text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.3s;
     }
+
     a:hover {
-      text-decoration: underline;
+      background-color: #ff1a3c;
     }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+    }
+
+    svg {
+      width: 160px;
+      margin-bottom: 20px;
+    }
+
   </style>
 </head>
 <body>
+
+  <svg viewBox="0 0 512 512" fill="#ff4c60">
+    <path d="M256 48C141.1 48 48 141.1 48 256s93.1 208 208 208 208-93.1 208-208S370.9 48 256 48zm0 384c-97.2 0-176-78.8-176-176S158.8 80 256 80s176 78.8 176 176-78.8 176-176 176z"/>
+    <circle cx="200" cy="200" r="24"/>
+    <circle cx="312" cy="200" r="24"/>
+    <path d="M168 320c28-32 88-32 116 0" stroke="#ff4c60" stroke-width="24" stroke-linecap="round" fill="none"/>
+  </svg>
+
   <h1>404</h1>
-  <p>Ой! Кажется, ты попал не туда.</p>
-  <p><a href="/">Вернуться на главную</a></p>
+  <p>Ой! Страница не найдена.</p>
+  <a href="/">Вернуться домой</a>
+
 </body>
 </html>
