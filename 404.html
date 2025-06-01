@@ -3,251 +3,96 @@
 <head>
   <meta charset="UTF-8" />
   <title>404 — Страница не найдена</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet" />
   <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-      height: 100%;
-      background: radial-gradient(circle at center, #1a0000, #000000);
+    /* Стили как были (упрощенно) */
+    body {
+      margin: 0; padding: 0;
+      background: radial-gradient(circle at center, #1a0000, #000);
       font-family: 'Orbitron', sans-serif;
       color: #ff4c4c;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      user-select: none;
     }
-
-    canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 0;
-    }
-
-    .content {
-      position: absolute;
-      z-index: 2;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
-      padding: 0 10px;
-      max-width: 90vw;
-    }
-
     h1 {
       font-size: 140px;
-      margin: 0;
-      color: #000000;
-
-      /* Упрощенное свечение без тяжелого blur для мобильных */
+      color: #000;
       text-shadow:
-        0 0 6px #ff0000,
-        0 0 12px #ff1a1a,
-        0 0 18px #ff4c4c,
-        0 0 25px #ff6666;
-
+        0 0 6px #f00,
+        0 0 12px #f33,
+        0 0 18px #f66,
+        0 0 25px #f99;
+      margin: 0 0 10px 0;
       animation: pulse 4s ease-in-out infinite;
-      user-select: none;
-
-      /* Для маленьких экранов подгоняем размер */
-      @media (max-width: 600px) {
-        font-size: 80px;
-      }
     }
-
     @keyframes pulse {
       0%, 100% {
         text-shadow:
-          0 0 8px #ff0000,
-          0 0 15px #ff1a1a,
-          0 0 22px #ff4c4c,
-          0 0 30px #ff6666;
+          0 0 8px #f00,
+          0 0 15px #f33,
+          0 0 22px #f66,
+          0 0 30px #f99;
         transform: scale(1);
       }
       50% {
         text-shadow:
-          0 0 18px #ff4c4c,
-          0 0 30px #ff1a1a,
-          0 0 45px #ff0000,
-          0 0 60px #ff0000;
+          0 0 18px #f66,
+          0 0 30px #f33,
+          0 0 45px #f00,
+          0 0 60px #f00;
         transform: scale(1.05);
       }
     }
-
     p {
       font-size: 22px;
-      color: #ff9999;
-      text-shadow: 0 0 6px #ff6666;
-      margin-top: 10px;
-      user-select: none;
-      font-weight: 500;
-
-      /* Подгонка для мобильных */
-      @media (max-width: 600px) {
-        font-size: 16px;
-      }
+      color: #f99;
+      margin: 0 0 30px 0;
     }
-
-    a {
-      margin-top: 30px;
-      display: inline-block;
-      padding: 12px 30px;
-      color: #ff1a1a;
+    button {
+      background: #ff1a1a;
+      border: none;
+      padding: 15px 40px;
+      font-size: 18px;
       font-weight: bold;
-      font-size: 20px;
-      text-decoration: none;
-      text-shadow:
-        0 0 5px #ff0000,
-        0 0 10px #ff1a1a,
-        0 0 20px #ff4c4c;
-      transition: 0.3s ease;
-      user-select: none;
-
-      /* Мобильная подгонка */
-      @media (max-width: 600px) {
-        font-size: 16px;
-        padding: 10px 20px;
-      }
-    }
-
-    a:hover {
       color: #000;
+      border-radius: 8px;
+      cursor: pointer;
       text-shadow:
-        0 0 10px #ff0000,
-        0 0 25px #ff1a1a,
-        0 0 40px #ff4c4c;
-    }
-
-    .glitch {
-      position: absolute;
-      font-size: 24px;
-      color: rgba(255, 80, 80, 0.15);
+        0 0 5px #f00,
+        0 0 10px #f33,
+        0 0 20px #f66;
+      transition: background-color 0.3s ease;
       user-select: none;
-      pointer-events: none;
-      animation-name: float, glitchAnim;
-      animation-duration: 10s, 1.5s;
-      animation-iteration-count: infinite, infinite;
-      animation-timing-function: linear, steps(2);
-
-      @media (max-width: 600px) {
-        font-size: 14px;
-      }
     }
-
-    @keyframes float {
-      0% { transform: translateY(0); opacity: 0.1; }
-      50% { transform: translateY(-20px); opacity: 0.4; }
-      100% { transform: translateY(-40px); opacity: 0.1; }
-    }
-
-    @keyframes glitchAnim {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0; }
+    button:hover {
+      background: #cc0000;
+      text-shadow:
+        0 0 10px #f00,
+        0 0 25px #f33,
+        0 0 40px #f66;
     }
   </style>
 </head>
 <body>
-  <canvas id="particles"></canvas>
+  <h1>404</h1>
+  <p>You shouldn't be here.</p>
+  <button id="exitBtn">Exit</button>
 
-  <div class="content">
-    <h1>404</h1>
-    <p>You shouldn't be here.</p>
-    <a href="https://instagram.com/arbvzer" target="_blank" rel="noopener noreferrer">@arbvzer</a>
-  </div>
-
-  <!-- Партиклы -->
   <script>
-    const canvas = document.getElementById('particles');
-    const ctx = canvas.getContext('2d');
-    let width, height;
-    let particles = [];
+    document.getElementById('exitBtn').addEventListener('click', () => {
+      // Попытка закрыть окно
+      window.close();
 
-    function resize() {
-      width = window.innerWidth;
-      height = window.innerHeight;
-      canvas.width = width;
-      canvas.height = height;
-    }
-    window.addEventListener('resize', resize);
-    resize();
-
-    class Particle {
-      constructor() {
-        this.reset();
-      }
-      reset() {
-        this.x = Math.random() * width;
-        this.y = Math.random() * height;
-        this.radius = Math.random() * 2 + 1;
-        this.speedX = Math.random() * 0.6 - 0.3;
-        this.speedY = Math.random() * 0.6 - 0.3;
-        this.alpha = Math.random() * 0.5 + 0.3;
-      }
-      update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-        if (this.x < 0 || this.x > width || this.y < 0 || this.y > height) this.reset();
-      }
-      draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 0, 0, ${this.alpha})`;
-        ctx.shadowColor = 'rgba(255,0,0,0.7)';
-        ctx.shadowBlur = 6;
-        ctx.fill();
-        ctx.shadowBlur = 0;
-      }
-    }
-
-    function createParticles(count) {
-      particles = [];
-      for (let i = 0; i < count; i++) {
-        particles.push(new Particle());
-      }
-    }
-
-    function animate() {
-      ctx.clearRect(0, 0, width, height);
-      particles.forEach(p => {
-        p.update();
-        p.draw();
-      });
-      requestAnimationFrame(animate);
-    }
-
-    createParticles(150);
-    animate();
-  </script>
-
-  <!-- Глюки / цифры с рандомным миганием -->
-  <script>
-    const glitchCount = 40;
-    const glitchElements = [];
-
-    for (let i = 0; i < glitchCount; i++) {
-      const el = document.createElement('div');
-      el.className = 'glitch';
-      el.style.left = `${Math.random() * 100}%`;
-      el.style.top = `${Math.random() * 100}%`;
-      el.style.animationDuration = `${10 + Math.random() * 15}s, ${1 + Math.random()}s`;
-      el.style.fontSize = `${12 + Math.random() * 24}px`;
-      el.style.opacity = 0.1 + Math.random() * 0.3;
-      el.textContent = Math.random() < 0.5 ? '0' : '1';
-      document.body.appendChild(el);
-      glitchElements.push(el);
-    }
-
-    // Рандомное изменение цифр и мигание "глюка"
-    function glitchChange() {
-      glitchElements.forEach(el => {
-        if (Math.random() < 0.15) {
-          el.textContent = Math.random() < 0.5 ? '0' : '1';
-          el.style.animationDuration = `${1 + Math.random()}s`;
-        }
-      });
-    }
-
-    setInterval(glitchChange, 300);
+      // Если не закрылось, делаем редирект (через небольшой таймаут)
+      setTimeout(() => {
+        window.location.href = 'about:blank';
+      }, 100);
+    });
   </script>
 </body>
 </html>
