@@ -6,12 +6,14 @@ const easingHeart = mojs.easing.path(
 const el = {
   container: qs(".mo-container"),
 
-  i: qs(".lttr--C"),
-  l: qs(".lttr--H"),
-  o: qs(".lttr--A"),
-  y: qs(".lttr--R"),
+  i: qs(".lttr--I"),
+  l: qs(".lttr--L"),
+  o: qs(".lttr--O"),
+  v: qs(".lttr--V"),
+  e: qs(".lttr--E"),
+  y: qs(".lttr--Y"),
   o2: qs(".lttr--O2"),
-  u: qs(".lttr--S"),
+  u: qs(".lttr--U"),
 
   lineLeft: qs(".line--left"),
   lineRight: qs(".line--rght"),
@@ -83,14 +85,14 @@ const crtLoveTl = () => {
   new mojs.Tween({
     duration: move,
     onStart: () => {
-      [el.i, el.l, el.o, el.y, el.o2, el.u].forEach(el => {
+      [el.i, el.l, el.o, el.v, el.e, el.y, el.o2, el.u].forEach(el => {
         el.style.opacity = 1;
         el.style =
         "transform: translate(0px, 0px) rotate(0deg) skew(0deg, 0deg) scale(1, 1); opacity: 1;";
       });
     },
     onComplete: () => {
-      [el.l, el.o,].forEach(el => el.style.opacity = 0);
+      [el.l, el.o, el.v, el.e].forEach(el => el.style.opacity = 0);
       el.blop.play();
     } }),
 
