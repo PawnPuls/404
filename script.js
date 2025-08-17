@@ -6,14 +6,12 @@ const easingHeart = mojs.easing.path(
 const el = {
   container: qs(".mo-container"),
 
-  i: qs(".lttr--I"),
-  l: qs(".lttr--L"),
-  o: qs(".lttr--O"),
-  v: qs(".lttr--V"),
-  e: qs(".lttr--E"),
-  y: qs(".lttr--Y"),
+  i: qs(".lttr--C"),
+  l: qs(".lttr--H"),
+  o: qs(".lttr--A"),
+  y: qs(".lttr--R"),
   o2: qs(".lttr--O2"),
-  u: qs(".lttr--U"),
+  u: qs(".lttr--S"),
 
   lineLeft: qs(".line--left"),
   lineRight: qs(".line--rght"),
